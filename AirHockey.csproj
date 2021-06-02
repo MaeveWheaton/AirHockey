@@ -81,9 +81,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\impact_beep.wav" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\score_beep2.wav" />
   </ItemGroup>
   <ItemGroup>
@@ -94,6 +91,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\score_beep.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\impact_beep.wav" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -14,7 +14,8 @@ namespace AirHockey
     public partial class Form1 : Form
     {
         //global varibles
-        Rectangle player1, player2, ball, outsideBorder, faceOffCircle, p1Goal, p2Goal; //assigned dimensions after this. is created
+        Rectangle player1, player2, p1Top, p1Right, p1Bottom, p1Left, p2Top, p2Right, p2Bottom, p2Left, 
+            ball, outsideBorder, faceOffCircle, p1Goal, p2Goal; //assigned dimensions after this. is created
         SoundPlayer wallHitSound = new SoundPlayer(Properties.Resources.impact_beep);
         SoundPlayer playerHitSound = new SoundPlayer(Properties.Resources.player_hit_beep1_sonar);
         SoundPlayer goalSound = new SoundPlayer(Properties.Resources.score_beep);
@@ -26,6 +27,7 @@ namespace AirHockey
         int ballXSpeed = 6;
         int ballYSpeed = -6;
 
+        //player controls
         bool wDown = false;
         bool aDown = false;
         bool sDown = false;
@@ -34,6 +36,9 @@ namespace AirHockey
         bool leftArrowDown = false;
         bool downArrowDown = false;
         bool rightArrowDown = false;
+
+        //component positions - for collisions
+        int p1X, p1Y, p2X, p2Y, ballX, ballY;
 
         //brushes and pens
         SolidBrush redBrush = new SolidBrush(Color.Red);
@@ -53,19 +58,32 @@ namespace AirHockey
 
         public void GameInit()
         {
+            //Rectangles
             outsideBorder = new Rectangle(20, 20, this.Width - 40, this.Height - 40);
             faceOffCircle = new Rectangle((this.Width / 2) - 40, (this.Height / 2) - 40, 80, 80);
-            p1Goal = new Rectangle(20, (this.Height / 2) - 40, 1, 80);
-            p2Goal = new Rectangle(this.Width - 20, (this.Height / 2) - 40, 1, 80);
-            player1 = new Rectangle(35, this.Height / 2 - 20, 40, 40);
-            player2 = new Rectangle(this.Width - 75, this.Height / 2 - 20, 40, 40);
+            p1Goal = new Rectangle(20, (this.Height / 2) - 35, 1, 70);
+            p2Goal = new Rectangle(this.Width - 20, (this.Height / 2) - 35, 1, 70);
             ball = new Rectangle(this.Width / 2 - 10, this.Height / 2 - 10, 20, 20);
 
+            player1 = new Rectangle(35, this.Height / 2 - 20, 40, 40);
+            /*p1Top = new Rectangle(player1.X, player1.Y, 40, 1);
+            p1Right = new Rectangle(player1.X + 40, player1.Y, 1, 40);
+            p1Bottom = new Rectangle(player1.X, player1.Y + 40, 40, 1);
+            p1Left = new Rectangle(player1.X, player1.Y, 1, 40);*/
+
+            player2 = new Rectangle(this.Width - 75, this.Height / 2 - 20, 40, 40);
+            /*p2Top = new Rectangle(player2.X, player2.Y, 40, 1);
+            p2Right = new Rectangle(player2.X + 40, player2.Y, 1, 40);
+            p2Bottom = new Rectangle(player2.X, player2.Y + 40, 40, 1);
+            p2Left = new Rectangle(player2.X, player2.Y, 1, 40);*/
+
+            //reset scores
             player1Score = 0;
             player2Score = 0;
             p1ScoreLabel.Text = $"{player1Score}";
             p2ScoreLabel.Text = $"{player2Score}";
 
+            //start game
             gameTimer.Enabled = true;
         }
 
@@ -133,9 +151,18 @@ namespace AirHockey
 
         private void GameTimer_Tick(object sender, EventArgs e)
         {
+            //collect x and y of paddles and puck
+            p1X = player1.X;
+            p1Y = player1.Y;
+            p2X = player2.X;
+            p2Y = player2.Y;
+            ballX = ball.X;
+            ballY = ball.Y;
+
             //move ball
             ball.X += ballXSpeed;
             ball.Y += ballYSpeed;
+            //for (slow down ball)
 
             //move player 1
             if (wDown == true && player1.Y > 20)
@@ -159,54 +186,139 @@ namespace AirHockey
             }
 
             //move player 2
-            if (upArrowDown == true && player2.Y > 0)
+            if (upArrowDown == true && player2.Y > 20)
             {
                 player2.Y -= playerSpeed;
             }
 
-            if (leftArrowDown == true && player2.X > 0)
+            if (leftArrowDown == true && player2.X > 20)
             {
                 player2.X -= playerSpeed;
             }
 
-            if (downArrowDown == true && player2.Y < this.Height - player2.Height)
+            if (downArrowDown == true && player2.Y < this.Height - player2.Height - 20)
             {
                 player2.Y += playerSpeed;
             }
 
-            if (rightArrowDown == true && player2.X < this.Width - player2.Height)
+            if (rightArrowDown == true && player2.X < this.Width - player2.Height - 20)
             {
                 player2.X += playerSpeed;
             }
 
+            p1Top = new Rectangle(player1.X, player1.Y, 40, 1);
+            p1Right = new Rectangle(player1.X + 40, player1.Y, 1, 40);
+            p1Bottom = new Rectangle(player1.X, player1.Y + 40, 40, 1);
+            p1Left = new Rectangle(player1.X, player1.Y, 1, 40);
+
+            p2Top = new Rectangle(player2.X, player2.Y, 40, 1);
+            p2Right = new Rectangle(player2.X + 40, player2.Y, 1, 40);
+            p2Bottom = new Rectangle(player2.X, player2.Y + 40, 40, 1);
+            p2Left = new Rectangle(player2.X, player2.Y, 1, 40);
+
+            //ball collision with player
+            if (p1Top.IntersectsWith(ball))
+            {
+                ballYSpeed *= -1;
+                ball.X = ballX;
+                ball.Y = ballY;
+
+                player1.X = p1X;
+                player1.Y = p1Y;
+
+                playerHitSound.Play();
+            }
+            if (p1Right.IntersectsWith(ball))
+            {
+                ballXSpeed *= -1;
+                ball.X = ballX;
+                ball.Y = ballY;
+
+                player1.X = p1X;
+                player1.Y = p1Y;
+
+                playerHitSound.Play();
+            }
+            if (p1Bottom.IntersectsWith(ball))
+            {
+                ballYSpeed *= -1;
+                ball.X = ballX;
+                ball.Y = ballY;
+
+                player1.X = p1X;
+                player1.Y = p1Y;
+
+                playerHitSound.Play();
+            }
+            if (p1Left.IntersectsWith(ball))
+            {
+                ballXSpeed *= -1;
+                ball.X = ballX;
+                ball.Y = ballY;
+
+                player1.X = p1X;
+                player1.Y = p1Y;
+
+                playerHitSound.Play();
+            }
+
+            if (p2Top.IntersectsWith(ball))
+            {
+                ballYSpeed *= -1;
+                ball.X = ballX;
+                ball.Y = ballY;
+
+                player2.X = p2X;
+                player2.Y = p2Y;
+
+                playerHitSound.Play();
+            }
+            if (p2Right.IntersectsWith(ball))
+            {
+                ballXSpeed *= -1;
+                ball.X = ballX;
+                ball.Y = ballY;
+
+                player2.X = p2X;
+                player2.Y = p2Y;
+
+                playerHitSound.Play();
+            }
+            if (p2Bottom.IntersectsWith(ball))
+            {
+                ballYSpeed *= -1;
+                ball.X = ballX;
+                ball.Y = ballY;
+
+                player2.X = p2X;
+                player2.Y = p2Y;
+
+                playerHitSound.Play();
+            }
+            if (p2Left.IntersectsWith(ball))
+            {
+                ballXSpeed *= -1;
+                ball.X = ballX;
+                ball.Y = ballY;
+
+                player2.X = p2X;
+                player2.Y = p2Y;
+
+                playerHitSound.Play();
+            }
+
             //ball collision with walls
             if (ball.Y < 20 || ball.Y > this.Height - ball.Height - 20)
-            {                
+            {
                 ballYSpeed *= -1;
 
-                wallHitSound.Play();
+                //wallHitSound.Play();
             }
             else if (ball.X < 20 || ball.X > this.Width - ball.Width - 20)
             {
                 ballXSpeed *= -1;
 
-                wallHitSound.Play();
-            }
-
-            //ball collision with player
-            if (player1.IntersectsWith(ball) && ballXSpeed < 0)
-            {
-                ballXSpeed *= -1;
-                ball.X = player1.X + ball.Width;
-
-                playerHitSound.Play();
-            }
-            if (player2.IntersectsWith(ball) && ballXSpeed < 0)
-            {
-                ballXSpeed *= -1;
-                ball.X = player2.X + ball.Width;
-
-                playerHitSound.Play();
+                //wallHitSound.Play();
             }
 
             //check for point scored
@@ -215,14 +327,13 @@ namespace AirHockey
                 player2Score++;
                 p2ScoreLabel.Text = $"{player2Score}";
 
+                ball.X = this.Width / 2 - 10;
+                ball.Y = this.Height / 2 - 10;
 
-                ball.X = 295;
-                ball.Y = 195;
-
-                player1.Y = 130;
-                player1.X = 10;
-                player2.Y = 250;
-                player2.X = 10;
+                player1.X = 35;
+                player1.Y = this.Height / 2 - 20;
+                player2.X = this.Width - 75;
+                player2.Y = this.Height / 2 - 20;
 
                 goalSound.Play();
             }
@@ -231,13 +342,13 @@ namespace AirHockey
                 player1Score++;
                 p1ScoreLabel.Text = $"{player1Score}";
 
-                ball.X = 295;
-                ball.Y = 195;
+                ball.X = this.Width / 2 - 10;
+                ball.Y = this.Height / 2 - 10;
 
-                player1.Y = 130;
-                player1.X = 10;
-                player2.Y = 250;
-                player2.X = 10;
+                player1.X = 35;
+                player1.Y = this.Height / 2 - 20;
+                player2.X = this.Width - 75;
+                player2.Y = this.Height / 2 - 20;
 
                 goalSound.Play();
             }
@@ -265,6 +376,8 @@ namespace AirHockey
                 exitButton.Enabled = true;
                 exitButton.Visible = true;*/
             }
+
+            Refresh();
         }
         
         private void Form1_Paint(object sender, PaintEventArgs e)
