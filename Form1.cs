@@ -35,8 +35,8 @@ namespace AirHockey
 
         //component speeds
         int playerSpeed = 4;
-        int ballXSpeed = 6;
-        int ballYSpeed = -6;
+        int ballXSpeed = 7;
+        int ballYSpeed = -7;
 
         //random for random ball speeds after collisions
         Random randSpeedGen = new Random();
@@ -186,35 +186,6 @@ namespace AirHockey
                 ball.Y += ballYSpeed;
             }
 
-            /*else if (ballXSpeed > 0 && ballYSpeed > 0) 
-            {
-                ball.X += ballXSpeed; 
-                ball.Y += ballYSpeed;
-
-                ballXSpeed--;
-                ballYSpeed--;
-            } 
-            else if (ballXSpeed > 0) 
-            {
-                ball.X += ballXSpeed; 
-                ball.Y += ballYSpeed;
-
-                ballXSpeed--;
-            } 
-            else if (ballYSpeed > 0) 
-            {
-                ball.X += ballXSpeed; 
-                ball.Y += ballYSpeed;
-
-                ballYSpeed--;
-            } 
-            else 
-            {
-                ball.X += ballXSpeed; 
-                ball.Y += ballYSpeed; 
-            }
-             */
-
             //move player 1
             if (wDown == true && player1.Y > 20)
             {
@@ -255,14 +226,10 @@ namespace AirHockey
             if (ball.Y < 20 || ball.Y > this.Height - ball.Height - 20)
             {
                 ballYSpeed *= -1;
-
-                //wallHitSound.Play();
             }
             else if (ball.X < 20 || ball.X > this.Width - ball.Width - 20)
             {
                 ballXSpeed *= -1;
-
-                //wallHitSound.Play();
             }
 
             //create rectagles for each side of each player
@@ -280,11 +247,8 @@ namespace AirHockey
             if (p1Top.IntersectsWith(ball))
             {
                 ballYSpeed *= -1;
-                ball.X = ballX;
-                ball.Y = ballY;
 
-                player1.X = p1X;
-                player1.Y = p1Y;
+                AfterPlayerCollisionReset();
 
                 playerHitSound.Stop();
                 playerHitSound.Play();
@@ -292,11 +256,8 @@ namespace AirHockey
             else if (p1Right.IntersectsWith(ball))
             {
                 ballXSpeed *= -1;
-                ball.X = ballX;
-                ball.Y = ballY;
 
-                player1.X = p1X;
-                player1.Y = p1Y;
+                AfterPlayerCollisionReset();
 
                 playerHitSound.Stop();
                 playerHitSound.Play();
@@ -304,11 +265,8 @@ namespace AirHockey
             else if (p1Bottom.IntersectsWith(ball))
             {
                 ballYSpeed *= -1;
-                ball.X = ballX;
-                ball.Y = ballY;
 
-                player1.X = p1X;
-                player1.Y = p1Y;
+                AfterPlayerCollisionReset();
 
                 playerHitSound.Stop();
                 playerHitSound.Play();
@@ -316,11 +274,8 @@ namespace AirHockey
             else if (p1Left.IntersectsWith(ball))
             {
                 ballXSpeed *= -1;
-                ball.X = ballX;
-                ball.Y = ballY;
 
-                player1.X = p1X;
-                player1.Y = p1Y;
+                AfterPlayerCollisionReset();
 
                 playerHitSound.Stop();
                 playerHitSound.Play();
@@ -329,11 +284,8 @@ namespace AirHockey
             if (p2Top.IntersectsWith(ball))
             {
                 ballYSpeed *= -1;
-                ball.X = ballX;
-                ball.Y = ballY;
 
-                player2.X = p2X;
-                player2.Y = p2Y;
+                AfterPlayerCollisionReset();
 
                 playerHitSound.Stop();
                 playerHitSound.Play();
@@ -341,11 +293,8 @@ namespace AirHockey
             else if (p2Right.IntersectsWith(ball))
             {
                 ballXSpeed *= -1;
-                ball.X = ballX;
-                ball.Y = ballY;
 
-                player2.X = p2X;
-                player2.Y = p2Y;
+                AfterPlayerCollisionReset();
 
                 playerHitSound.Stop();
                 playerHitSound.Play();
@@ -353,11 +302,8 @@ namespace AirHockey
             else if (p2Bottom.IntersectsWith(ball))
             {
                 ballYSpeed *= -1;
-                ball.X = ballX;
-                ball.Y = ballY;
 
-                player2.X = p2X;
-                player2.Y = p2Y;
+                AfterPlayerCollisionReset();
 
                 playerHitSound.Stop();
                 playerHitSound.Play();
@@ -365,11 +311,8 @@ namespace AirHockey
             else if (p2Left.IntersectsWith(ball))
             {
                 ballXSpeed *= -1;
-                ball.X = ballX;
-                ball.Y = ballY;
 
-                player2.X = p2X;
-                player2.Y = p2Y;
+                AfterPlayerCollisionReset();
 
                 playerHitSound.Stop();
                 playerHitSound.Play();
@@ -545,6 +488,15 @@ namespace AirHockey
             player1.Y = this.Height / 2 - 20;
             player2.X = this.Width - 75;
             player2.Y = this.Height / 2 - 20;
+        }
+
+        public void AfterPlayerCollisionReset()
+        {
+            ball.X = ballX;
+            ball.Y = ballY;
+
+            player2.X = p2X;
+            player2.Y = p2Y;
         }
 
         public void GameOver()
