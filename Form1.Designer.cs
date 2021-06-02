@@ -55,7 +55,7 @@ namespace AirHockey
             this.playAgainButton.ForeColor = System.Drawing.Color.White;
             this.playAgainButton.Location = new System.Drawing.Point(362, 616);
             this.playAgainButton.Name = "playAgainButton";
-            this.playAgainButton.Size = new System.Drawing.Size(173, 47);
+            this.playAgainButton.Size = new System.Drawing.Size(173, 57);
             this.playAgainButton.TabIndex = 0;
             this.playAgainButton.Text = "Play Again";
             this.playAgainButton.UseVisualStyleBackColor = false;
@@ -112,7 +112,7 @@ namespace AirHockey
             this.exitButton.ForeColor = System.Drawing.Color.White;
             this.exitButton.Location = new System.Drawing.Point(565, 616);
             this.exitButton.Name = "exitButton";
-            this.exitButton.Size = new System.Drawing.Size(171, 47);
+            this.exitButton.Size = new System.Drawing.Size(171, 57);
             this.exitButton.TabIndex = 5;
             this.exitButton.Text = "Exit";
             this.exitButton.UseVisualStyleBackColor = false;

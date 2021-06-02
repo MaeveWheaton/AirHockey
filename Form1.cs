@@ -3,8 +3,8 @@
  * Mr. T
  * June 2, 2021
  * 2 player game resembling air hockey, p1 moves with wasd and p2 moves with arrow keys, 
- * ball bounces off all wall and points are scored when the ball touches the opposite players 'net', 
- * game ends at 3 pts
+ * ball waits for a player to hit it to start and bounces off all walls
+ * points are scored when the ball touches the opposite players 'net', game ends at 3 pts
 */
 using System;
 using System.Collections.Generic;
@@ -29,12 +29,20 @@ namespace AirHockey
         SoundPlayer goalSound = new SoundPlayer(Properties.Resources.score_beep);
         SoundPlayer winSound = new SoundPlayer(Properties.Resources.synth_sound);
 
+        //player scores
         int player1Score = 0;
         int player2Score = 0;
 
+        //component speeds
         int playerSpeed = 4;
         int ballXSpeed = 6;
         int ballYSpeed = -6;
+
+        //random for random ball speeds after collisions
+        Random randSpeedGen = new Random();
+
+        //for ball wait until hit to start
+        bool firstHit;
 
         //player controls
         bool wDown = false;
@@ -83,10 +91,9 @@ namespace AirHockey
             p2ScoreLabel.Text = $"{player2Score}";
 
             //start game
+            firstHit = true;
             gameTimer.Enabled = true;
         }
-
-        
 
         private void Form1_KeyDown(object sender, KeyEventArgs e)
         {
@@ -161,9 +168,52 @@ namespace AirHockey
             ballY = ball.Y;
 
             //move ball
-            ball.X += ballXSpeed;
-            ball.Y += ballYSpeed;
-            //for (slow down ball)
+            
+            if (firstHit == true)
+            {
+                if (p1Top.IntersectsWith(ball) || p1Right.IntersectsWith(ball) || p1Bottom.IntersectsWith(ball) || 
+                    p2Top.IntersectsWith(ball) || p2Left.IntersectsWith(ball) || p2Bottom.IntersectsWith(ball))
+                {
+                    ball.X += ballXSpeed;
+                    ball.Y += ballYSpeed;
+
+                    firstHit = false;
+                }
+            }
+            else
+            {
+                ball.X += ballXSpeed;
+                ball.Y += ballYSpeed;
+            }
+
+            /*else if (ballXSpeed > 0 && ballYSpeed > 0) 
+            {
+                ball.X += ballXSpeed; 
+                ball.Y += ballYSpeed;
+
+                ballXSpeed--;
+                ballYSpeed--;
+            } 
+            else if (ballXSpeed > 0) 
+            {
+                ball.X += ballXSpeed; 
+                ball.Y += ballYSpeed;
+
+                ballXSpeed--;
+            } 
+            else if (ballYSpeed > 0) 
+            {
+                ball.X += ballXSpeed; 
+                ball.Y += ballYSpeed;
+
+                ballYSpeed--;
+            } 
+            else 
+            {
+                ball.X += ballXSpeed; 
+                ball.Y += ballYSpeed; 
+            }
+             */
 
             //move player 1
             if (wDown == true && player1.Y > 20)
