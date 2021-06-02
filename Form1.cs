@@ -24,7 +24,6 @@ namespace AirHockey
         //global varibles
         Rectangle player1, player2, p1Top, p1Right, p1Bottom, p1Left, p2Top, p2Right, p2Bottom, p2Left, 
             ball, outsideBorder, faceOffCircle, p1Goal, p2Goal; //assigned dimensions after this. is created
-        SoundPlayer wallHitSound = new SoundPlayer(Properties.Resources.impact_beep);
         SoundPlayer playerHitSound = new SoundPlayer(Properties.Resources.player_hit_beep1_sonar);
         SoundPlayer goalSound = new SoundPlayer(Properties.Resources.score_beep);
         SoundPlayer winSound = new SoundPlayer(Properties.Resources.synth_sound);
