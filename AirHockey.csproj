@@ -95,5 +95,11 @@
   <ItemGroup>
     <None Include="Resources\impact_beep.wav" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\win.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\synth_sound.wav" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

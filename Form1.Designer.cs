@@ -31,10 +31,11 @@ namespace AirHockey
         {
             this.components = new System.ComponentModel.Container();
             this.gameTimer = new System.Windows.Forms.Timer(this.components);
-            this.pauseButton = new System.Windows.Forms.Button();
+            this.playAgainButton = new System.Windows.Forms.Button();
             this.p1ScoreLabel = new System.Windows.Forms.Label();
             this.p2ScoreLabel = new System.Windows.Forms.Label();
             this.winLabel = new System.Windows.Forms.Label();
+            this.exitButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // gameTimer
@@ -42,23 +43,24 @@ namespace AirHockey
             this.gameTimer.Interval = 20;
             this.gameTimer.Tick += new System.EventHandler(this.GameTimer_Tick);
             // 
-            // pauseButton
+            // playAgainButton
             // 
-            this.pauseButton.BackColor = System.Drawing.Color.Transparent;
-            this.pauseButton.Enabled = false;
-            this.pauseButton.FlatAppearance.BorderColor = System.Drawing.Color.White;
-            this.pauseButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Gray;
-            this.pauseButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Gray;
-            this.pauseButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.pauseButton.Font = new System.Drawing.Font("Consolas", 6.9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.pauseButton.ForeColor = System.Drawing.Color.White;
-            this.pauseButton.Location = new System.Drawing.Point(498, 12);
-            this.pauseButton.Name = "pauseButton";
-            this.pauseButton.Size = new System.Drawing.Size(105, 47);
-            this.pauseButton.TabIndex = 0;
-            this.pauseButton.Text = "Pause";
-            this.pauseButton.UseVisualStyleBackColor = false;
-            this.pauseButton.Visible = false;
+            this.playAgainButton.BackColor = System.Drawing.Color.Transparent;
+            this.playAgainButton.Enabled = false;
+            this.playAgainButton.FlatAppearance.BorderColor = System.Drawing.Color.White;
+            this.playAgainButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Gray;
+            this.playAgainButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Gray;
+            this.playAgainButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.playAgainButton.Font = new System.Drawing.Font("Consolas", 6.9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.playAgainButton.ForeColor = System.Drawing.Color.White;
+            this.playAgainButton.Location = new System.Drawing.Point(362, 616);
+            this.playAgainButton.Name = "playAgainButton";
+            this.playAgainButton.Size = new System.Drawing.Size(173, 47);
+            this.playAgainButton.TabIndex = 0;
+            this.playAgainButton.Text = "Play Again";
+            this.playAgainButton.UseVisualStyleBackColor = false;
+            this.playAgainButton.Visible = false;
+            this.playAgainButton.Click += new System.EventHandler(this.playAgainButton_Click);
             // 
             // p1ScoreLabel
             // 
@@ -77,7 +79,7 @@ namespace AirHockey
             this.p2ScoreLabel.BackColor = System.Drawing.Color.Transparent;
             this.p2ScoreLabel.Font = new System.Drawing.Font("Consolas", 9.900001F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.p2ScoreLabel.ForeColor = System.Drawing.Color.White;
-            this.p2ScoreLabel.Location = new System.Drawing.Point(569, 74);
+            this.p2ScoreLabel.Location = new System.Drawing.Point(558, 74);
             this.p2ScoreLabel.Name = "p2ScoreLabel";
             this.p2ScoreLabel.Size = new System.Drawing.Size(75, 45);
             this.p2ScoreLabel.TabIndex = 3;
@@ -98,6 +100,25 @@ namespace AirHockey
             this.winLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.winLabel.Visible = false;
             // 
+            // exitButton
+            // 
+            this.exitButton.BackColor = System.Drawing.Color.Transparent;
+            this.exitButton.Enabled = false;
+            this.exitButton.FlatAppearance.BorderColor = System.Drawing.Color.White;
+            this.exitButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Gray;
+            this.exitButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Gray;
+            this.exitButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.exitButton.Font = new System.Drawing.Font("Consolas", 6.9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.exitButton.ForeColor = System.Drawing.Color.White;
+            this.exitButton.Location = new System.Drawing.Point(565, 616);
+            this.exitButton.Name = "exitButton";
+            this.exitButton.Size = new System.Drawing.Size(171, 47);
+            this.exitButton.TabIndex = 5;
+            this.exitButton.Text = "Exit";
+            this.exitButton.UseVisualStyleBackColor = false;
+            this.exitButton.Visible = false;
+            this.exitButton.Click += new System.EventHandler(this.exitButton_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(240F, 240F);
@@ -105,10 +126,11 @@ namespace AirHockey
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.Color.Black;
             this.ClientSize = new System.Drawing.Size(1100, 750);
+            this.Controls.Add(this.exitButton);
             this.Controls.Add(this.winLabel);
             this.Controls.Add(this.p2ScoreLabel);
             this.Controls.Add(this.p1ScoreLabel);
-            this.Controls.Add(this.pauseButton);
+            this.Controls.Add(this.playAgainButton);
             this.DoubleBuffered = true;
             this.Font = new System.Drawing.Font("Consolas", 9.900001F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
@@ -126,10 +148,11 @@ namespace AirHockey
         #endregion
 
         private System.Windows.Forms.Timer gameTimer;
-        private System.Windows.Forms.Button pauseButton;
+        private System.Windows.Forms.Button playAgainButton;
         private System.Windows.Forms.Label p1ScoreLabel;
         private System.Windows.Forms.Label p2ScoreLabel;
         private System.Windows.Forms.Label winLabel;
+        private System.Windows.Forms.Button exitButton;
     }
 }
 

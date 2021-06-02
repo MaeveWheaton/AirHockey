@@ -133,4 +133,7 @@
   <data name="score_beep2" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\score_beep2.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="synth_sound" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\synth_sound.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
 </root>

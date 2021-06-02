@@ -105,5 +105,14 @@ namespace AirHockey.Properties {
                 return ResourceManager.GetStream("score_beep2", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
+        /// </summary>
+        internal static System.IO.UnmanagedMemoryStream synth_sound {
+            get {
+                return ResourceManager.GetStream("synth_sound", resourceCulture);
+            }
+        }
     }
 }
